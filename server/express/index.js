@@ -1,6 +1,24 @@
+'use strict';
+
 var express = require('express'),
     http = require('http'),
-    app = express(),
-    server;
+    path = require('path'),
+    app = express();
 
-module.exports = server = http.createServer(app);
+
+function setStatic(client) {
+  app.use(express.static(path.join(__dirname, '../../client/' + client)));
+}
+
+app.get('/api/echo', function (req, res) {
+  res.json({
+    message: req.query.message || 'Hello'
+  });
+});
+
+
+module.exports = {
+  app: http.createServer(app),
+
+  setStatic: setStatic
+};

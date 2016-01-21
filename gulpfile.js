@@ -14,8 +14,13 @@ server = {
 };
 
 gulp.task('serve:express', function (cb) {
-  server.express.listen(port, ip, function () {
+  server.express.app.listen(port, ip, function () {
     console.log('Express server is running on %s:%d', ip, port);
     cb();
   });
+});
+
+gulp.task('serve:express:angular', ['serve:express'], function (cb) {
+  server.express.setStatic('angular');
+  cb();
 });
