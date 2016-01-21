@@ -5,8 +5,6 @@
 'use strict';
 
 var gulp = require('gulp'),
-    ip = '127.0.0.1',
-    port = 9000,
     server;
 
 server = {
@@ -14,10 +12,7 @@ server = {
 };
 
 gulp.task('serve:express', function (cb) {
-  server.express.app.listen(port, ip, function () {
-    console.log('Express server is running on %s:%d', ip, port);
-    cb();
-  });
+  server.express.run(cb)
 });
 
 gulp.task('serve:express:angular', ['serve:express'], function (cb) {

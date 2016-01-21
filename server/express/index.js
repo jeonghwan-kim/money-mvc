@@ -1,24 +1,30 @@
 'use strict';
 
-var express = require('express'),
-    http = require('http'),
-    path = require('path'),
-    app = express();
+var path = require('path'),
+    express = require('express'),
+    models = require('./models'),
+    app = express(),
+    port;
 
+port = process.env.PORT || 3000;
+
+require('./routes')(app);
 
 function setStatic(client) {
   app.use(express.static(path.join(__dirname, '../../client/' + client)));
 }
 
-app.get('/api/echo', function (req, res) {
-  res.json({
-    message: req.query.message || 'Hello'
+function run(cb) {
+  models.sequelize.sync().then(function () {
+    app.listen(port, function() {
+      console.log('Express server listening on port ' + port);
+      cb();
+    });
   });
-});
+}
 
-
-module.exports = {
-  app: http.createServer(app),
-
-  setStatic: setStatic
+module.exports ={
+  setStatic: setStatic,
+  run: run,
+  app: app // For unit test
 };
