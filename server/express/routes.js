@@ -9,4 +9,6 @@ var path = require('path');
 module.exports = function (app) {
   app.use('/api/echo', require('./api/echo'));
   app.use('/api/expenses', require('./api/expense'));
+
+  app.use('/auth', require('./auth'));
 };

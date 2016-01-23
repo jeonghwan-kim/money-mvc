@@ -4,9 +4,31 @@
 
 'use strict';
 
+var crypto = require('crypto');
+
 module.exports = function(sequelize, DataTypes) {
   var User = sequelize.define('User', {
-    username: DataTypes.STRING
+    name: DataTypes.STRING,
+    email: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        isEmail: true
+      }
+    },
+    password: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        len: [6, 100]
+      },
+      set: function (val) {
+        this.setDataValue('password', crypto.createHash('md5').update(val).digest('hex'))
+      },
+      get: function () {
+        return null;
+      }
+    }
   }, {
     classMethods: {
       associate: function(models) {

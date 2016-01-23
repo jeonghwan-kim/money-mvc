@@ -4,11 +4,11 @@
 
 'use strict';
 
-var gulp = require('gulp'),
-    server;
+var gulp = require('gulp');
+var server;
 
 server = {
-  express:  require('./server/express')
+  express: require('./server/express')
 };
 
 gulp.task('serve:express', function (cb) {
