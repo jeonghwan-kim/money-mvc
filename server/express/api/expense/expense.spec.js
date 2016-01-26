@@ -5,7 +5,7 @@
 var should = require('should'),
     request = require('supertest'),
     models = require('../../models'),
-    app = require('../../').app;
+    app = require('../../app').app;
 
 describe('GET /api/expenses', function () {
   var expense;

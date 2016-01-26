@@ -27,8 +27,8 @@ Client
 
 Authentication
 
-- post /auth/login
-- delete /auth/logout
+- post /auth (done)
+- delete /auth
 
 User 
 

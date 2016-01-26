@@ -6,16 +6,11 @@ var should = require('should');
 var crypto = require('crypto');
 var request = require('supertest');
 var models = require('../models');
-var app = require('../').app;
+var app = require('../app').app;
 
-describe.only('POST /auth', function () {
+
+describe('POST /auth', function () {
   var user;
-
-  before('Sync database', function (done) {
-    models.sequelize.sync({force: true}).then(function () {
-      done();
-    });
-  });
 
   before('Create a user', function (done) {
     models.User.create({

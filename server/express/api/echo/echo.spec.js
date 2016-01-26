@@ -4,7 +4,7 @@
 
 var should = require('should'),
     request = require('supertest');
-    app = require('../../').app;
+    app = require('../../app').app;
 
 describe('GET /api/echo', function () {
   it('should return json object with message', function (done) {
