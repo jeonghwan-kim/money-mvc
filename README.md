@@ -32,8 +32,8 @@ Authentication
 
 User 
 
-- post /api/users
-- get /api/users/me
+- post /api/users (done)
+- get /api/users/me 
 
 Expense 
 

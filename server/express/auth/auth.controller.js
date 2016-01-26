@@ -8,12 +8,8 @@ var auth = require('./auth.service');
 function login (req, res, next) {
   passport.authenticate('local', function (err, user, info) {
     var error = err || info;
-    if (error) {
-      return res.status(401).json(error);
-    }
-    if (!user) {
-      return res.status(404).json();
-    }
+    if (error) return res.status(401).json({warn: error});
+    if (!user) return res.status(404).json({warn: 'no account'});
     res.status(200).json({
       user: user,
       accessToken: auth.signToken(user)
@@ -23,7 +19,6 @@ function login (req, res, next) {
 
 function logout (req, res) {
   res.status(204).send();
-
 }
 
 module.exports = {

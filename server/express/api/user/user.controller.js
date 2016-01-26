@@ -19,6 +19,12 @@ function create(req, res) {
   });
 }
 
+function me(req, res) {
+  console.log(1,req.user)
+  res.json(req.user);
+}
+
 module.exports = {
-  create: create
+  create: create,
+  me: me
 };

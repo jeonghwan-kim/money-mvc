@@ -11,7 +11,7 @@ function setStatic(client) {
 }
 
 require('./config/express').setup(app);
-require('./config/passport').setup();
+require('./config/passport').setup(app);
 require('./routes').setup(app);
 
 if ('development' === app.get('env') || 'production' === app.get('env')) {

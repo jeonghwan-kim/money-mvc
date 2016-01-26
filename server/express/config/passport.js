@@ -4,6 +4,7 @@
 
 'use strict';
 
+var crypto = require('crypto');
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 var models = require('../models');
@@ -16,15 +17,16 @@ function setup() {
         models.User.findOne({
           where: {
             email: email,
-            password: password
+            password: crypto.createHash('md5').update(password).digest('hex')
           }
         }).then(function (result) {
           if (!result) {
-            return done(null, false);
+            done(null, false);
+          } else {
+            done(null, {id: result.get({plain: true}).id});
           }
-          return done(null, result.get({plain: true}));
         }).catch(function (err) {
-          return done(err);
+          done(err);
         })
       }
   ));
