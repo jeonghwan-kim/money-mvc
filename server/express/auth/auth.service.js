@@ -25,7 +25,6 @@ function signToken(user) {
 function isAuthenticated() {
   return compose()
       .use(function (req, res, next) {
-        console.log(5, req)
         // allow accessToken to be passed through query parameter as well
         if (req.query && req.query.hasOwnProperty('accessToken')) {
           req.headers.authorization = 'Bearer ' + req.query.accessToken;
@@ -39,8 +38,6 @@ function isAuthenticated() {
         }
       })
       .use(function (req, res, next) {
-        console.log(3, req.user);
-
         // Attach user to request
         models.User.findOne({
           where: {

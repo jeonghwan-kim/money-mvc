@@ -33,7 +33,7 @@ Authentication
 User 
 
 - post /api/users (done)
-- get /api/users/me 
+- get /api/users/me (done)
 
 Expense 
 

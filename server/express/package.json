@@ -4,8 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
-    "test": "NODE_ENV=test node_modules/.bin/mocha $(find ./ -name '*.spec.js') --recursive -w"
+    "start": "node index.js"
   },
   "author": "",
   "license": "ISC",
@@ -22,6 +21,8 @@
     "sequelize": "^3.17.3"
   },
   "devDependencies": {
+    "gulp": "^3.9.0",
+    "gulp-mocha": "^2.2.0",
     "mocha": "^2.3.4",
     "should": "^8.1.1",
     "supertest": "^1.1.0"

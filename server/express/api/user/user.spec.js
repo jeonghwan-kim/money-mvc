@@ -76,7 +76,6 @@ describe('GET /api/users/me', function () {
           .end(function(err, res) {
             if (err) throw new Error(err);
             accessToken = res.body.accessToken;
-            console.log(1, res.body)
             done();
           });
     }).catch(function (err) {

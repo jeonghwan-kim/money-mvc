@@ -8,7 +8,7 @@ var gulp = require('gulp');
 var server;
 
 server = {
-  express: require('./server/express')
+  express: require('./server/express/app')
 };
 
 gulp.task('serve:express', function (cb) {

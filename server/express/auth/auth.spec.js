@@ -45,7 +45,6 @@ describe('POST /auth', function () {
         //.expect(200)
         .end(function (err, res) {
           if (err)throw new Error(err);
-          console.log(res.body)
           res.body.should.have.property('accessToken');
           res.body.should.have.property('user');
           res.body.user.should.have.property('id');
