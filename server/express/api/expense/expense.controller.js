@@ -18,6 +18,19 @@ function index(req, res) {
   });
 }
 
+function show(req, res) {
+  models.Expense.findOne({
+    where: {
+      id: req.params.id
+    }
+  }).then(function (expense) {
+    res.json(expense);
+  }).catch(function (err) {
+    res.status(500).json({error: err});
+  });
+}
+
 module.exports = {
-  index: index
+  index: index,
+  show: show
 };
