@@ -12,6 +12,12 @@ var app = require('../app').app;
 describe('POST /auth', function () {
   var user;
 
+  before('Init database', function (done) {
+    models.sequelize.sync({force: true}).then(function () {
+      done();
+    });
+  });
+
   before('Create a user', function (done) {
     models.User.create({
       email: 'account1@gmail.com',
@@ -42,7 +48,7 @@ describe('POST /auth', function () {
           email: user.email,
           password: '123456'
         })
-        //.expect(200)
+        .expect(200)
         .end(function (err, res) {
           if (err)throw new Error(err);
           res.body.should.have.property('accessToken');

@@ -16,4 +16,8 @@ gulp.task('test', function () {
       }));
 });
 
-gulp.task('default', ['test']);
+gulp.task('watch', function () {
+  gulp.watch(['./api/**/*.js', './auth/**/*.js'], ['test']);
+});
+
+gulp.task('default', ['test', 'watch']);

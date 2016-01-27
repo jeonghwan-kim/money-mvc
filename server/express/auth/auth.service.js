@@ -51,7 +51,7 @@ function isAuthenticated() {
             next();
           }
         }).catch(function (err) {
-          return next(err);
+          next(err);
         });
       });
 }

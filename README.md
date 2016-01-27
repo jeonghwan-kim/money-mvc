@@ -37,7 +37,7 @@ User
 
 Expense 
 
-- post /api/expense
+- post /api/expense (done) 
 - get /api/expenses/meta
 - get /api/expenses?year=&month=
 - get /api/expenses?keyword=&limit=&skip=

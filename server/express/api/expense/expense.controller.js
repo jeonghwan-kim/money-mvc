@@ -8,6 +8,9 @@ var models = require('../../models');
 
 function index(req, res) {
   models.Expense.findAll({
+    where: {
+      UserId: req.user.id
+    }
   }).then(function (expenses) {
     res.json(expenses);
   }).catch(function (err) {

@@ -15,6 +15,9 @@ function create(req, res) {
   }).then(function (result) {
     res.status(201).json(result);
   }).catch(function (err) {
+    if (err.name === 'SequelizeUniqueConstraintError') {
+      return res.status(409).json({warn: 'Duplicated email address'})
+    }
     throw new Error(err);
   });
 }
