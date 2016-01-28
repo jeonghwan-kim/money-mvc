@@ -192,3 +192,99 @@ describe('GET /api/expenses/:id', function () {
         });
   });
 });
+
+
+describe('PUT /api/expenses/:id', function () {
+  var user;
+  var accessToken;
+  var expense;
+
+  before('Init database', function (done) {
+    models.sequelize.sync({force: true}).then(function () {
+      done();
+    });
+  });
+
+  before('Create User and login', function (done) {
+    models.User.create({
+      email: 'account1@email.com',
+      password: '123456'
+    }).then(function (result) {
+      user = result.get({plain: true});
+      request(app)
+          .post('/auth')
+          .send({
+            email: user.email,
+            password: '123456'
+          })
+          .expect(200)
+          .end(function (err, res) {
+            if (err) throw new Error(err);
+            accessToken = res.body.accessToken;
+            done();
+          });
+    }).catch(function (err) {
+      throw new Error(err);
+    });
+  });
+
+  after('Destroy a user', function (done) {
+    models.User.destroy({
+      where: {
+        id: user.id
+      }
+    }).then(function () {
+      done();
+    }).catch(function (err) {
+      throw new Error(err);
+    });
+  });
+
+  before('Create a expense', function (done) {
+    models.Expense.create({
+      date: '2016-01-01',
+      memo: 'memo 1',
+      amount: 10000,
+      UserId: user.id
+    }).then(function (result) {
+      expense = result.get({plain: true});
+      done();
+    }).catch(function (err) {
+      throw new Error(err);
+    });
+  });
+
+  after('Remove the expense', function (done) {
+    models.Expense.destroy({
+      where: {
+        id: expense.id
+      }
+    }).then(function () {
+      done();
+    }).catch(function (err) {
+      throw new Error(err);
+    });
+  });
+
+  it('should return a expense by id', function (done) {
+    expense.amount = expense.amount + 1000;
+    expense.memo = expense.memo + ' edited';
+    request(app)
+        .put('/api/expenses/' + expense.id)
+        .set('authorization', 'Bearer ' + accessToken)
+        .send({
+          amount: expense.amount,
+          memo: expense.memo
+        })
+        //.expect(200)
+        .end(function (err, res) {
+          if (err) throw new Error(err);
+          res.body.should.have.property('id', expense.id);
+          res.body.should.have.property('memo', expense.memo);
+          res.body.should.have.property('amount', expense.amount);
+          res.body.should.have.property('date', expense.date);
+          res.body.should.have.property('UserId', user.id);
+          done();
+        });
+  });
+});

@@ -4,6 +4,7 @@
 
 'use strict';
 
+var _ = require('lodash');
 var models = require('../../models');
 
 function index(req, res) {
@@ -30,7 +31,35 @@ function show(req, res) {
   });
 }
 
+function update(req, res) {
+  var values = _.omitBy({
+    amount: req.body.amount,
+    date: req.body.date,
+    memo: req.body.memo
+  }, _.isUndefined);
+
+  if (_.isEmpty(values)) {
+    return res.status(400).json({warn: 'body is empty'});
+  }
+
+  models.Expense.findOne({
+    where: {
+      id: req.params.id
+    }
+  }).then(function (expense) {
+    if (!expense) {
+      return res.status(404).json();
+    }
+    expense.updateAttributes(values).then(function (expense) {
+      res.json(expense);
+    }).catch(function (err) {
+      res.status(500).json({error: err})
+    });
+  });
+}
+
 module.exports = {
   index: index,
-  show: show
+  show: show,
+  update: update
 };

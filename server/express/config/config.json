@@ -4,8 +4,7 @@
     "password": "root",
     "database": "moneymvc_development",
     "host": "127.0.0.1",
-    "dialect": "mysql",
-    "logging": true
+    "dialect": "mysql"
   },
   "test": {
     "username": "root",
@@ -20,7 +19,6 @@
     "password": "root",
     "database": "moneymvc_production",
     "host": "127.0.0.1",
-    "dialect": "mysql",
-    "logging": true
+    "dialect": "mysql"
   }
 }

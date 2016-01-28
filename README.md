@@ -41,8 +41,8 @@ Expense
 - get /api/expenses/meta
 - get /api/expenses?year=&month=
 - get /api/expenses?keyword=&limit=&skip=
-- get /api/expense/:id
-- put /api/expense/:id 
+- get /api/expense/:id (done)
+- put /api/expense/:id (done) 
 - delete /api/expense/:id
 
 - get /api/expense/monthly
