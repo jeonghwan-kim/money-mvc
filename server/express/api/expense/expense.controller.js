@@ -58,8 +58,24 @@ function update(req, res) {
   });
 }
 
+function destroy(req, res) {
+  models.Expense.destroy({
+    where: {
+      id: parseInt(req.params.id, 10)
+    }
+  }).then(function (affectedRows) {
+    if (!affectedRows) {
+      return res.status(404).json({warn: 'No expense'});
+    }
+    res.status(204).json();
+  }).catch(function (err) {
+    res.status(500).json({error: err})
+  })
+}
+
 module.exports = {
   index: index,
   show: show,
-  update: update
+  update: update,
+  destroy: destroy
 };

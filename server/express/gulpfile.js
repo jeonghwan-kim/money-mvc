@@ -10,7 +10,7 @@ process.env.NODE_ENV = 'test';
 gulp.task('test', function () {
   gulp.src(['./api/**/*.spec.js', './auth/**/*.spec.js'])
       .pipe(mocha({
-        reporter: 'dot',
+        reporter: 'spec',
         clearRequireCache: true,
         ignoreLeaks: true
       }));

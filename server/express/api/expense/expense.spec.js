@@ -193,7 +193,6 @@ describe('GET /api/expenses/:id', function () {
   });
 });
 
-
 describe('PUT /api/expenses/:id', function () {
   var user;
   var accessToken;
@@ -276,7 +275,7 @@ describe('PUT /api/expenses/:id', function () {
           amount: expense.amount,
           memo: expense.memo
         })
-        //.expect(200)
+        .expect(200)
         .end(function (err, res) {
           if (err) throw new Error(err);
           res.body.should.have.property('id', expense.id);
@@ -287,4 +286,89 @@ describe('PUT /api/expenses/:id', function () {
           done();
         });
   });
+});
+
+describe('DELETE /api/expenses/:id', function () {
+  var user;
+  var accessToken;
+  var expense;
+
+  before('Init database', function (done) {
+    models.sequelize.sync({force: true}).then(function () {
+      done();
+    });
+  });
+
+  before('Create User and login', function (done) {
+    models.User.create({
+      email: 'account1@email.com',
+      password: '123456'
+    }).then(function (result) {
+      user = result.get({plain: true});
+      request(app)
+          .post('/auth')
+          .send({
+            email: user.email,
+            password: '123456'
+          })
+          .expect(200)
+          .end(function (err, res) {
+            if (err) throw new Error(err);
+            accessToken = res.body.accessToken;
+            done();
+          });
+    }).catch(function (err) {
+      throw new Error(err);
+    });
+  });
+
+  after('Destroy a user', function (done) {
+    models.User.destroy({
+      where: {
+        id: user.id
+      }
+    }).then(function () {
+      done();
+    }).catch(function (err) {
+      throw new Error(err);
+    });
+  });
+
+  before('Create a expense', function (done) {
+    models.Expense.create({
+      date: '2016-01-01',
+      memo: 'memo 1',
+      amount: 10000,
+      UserId: user.id
+    }).then(function (result) {
+      expense = result.get({plain: true});
+      done();
+    }).catch(function (err) {
+      throw new Error(err);
+    });
+  });
+
+  after('Ensure the expense is removed', function (done) {
+    models.Expense.findOne({
+      where: {
+        id: expense.id
+      }
+    }).then(function (r) {
+      (r === null).should.be.equal(true);
+      done()
+    }).catch(function (e) {
+      throw e;
+    });
+  });
+
+  it('should remove expense', function (done) {
+    expense.amount = expense.amount + 1000;
+    expense.memo = expense.memo + ' edited';
+    request(app)
+        .delete('/api/expenses/' + expense.id)
+        .set('authorization', 'Bearer ' + accessToken)
+        .send()
+        .expect(204)
+        .end(done);
+  })
 });
