@@ -38,14 +38,12 @@ User
 Expense 
 
 - post /api/expense (done) 
-- get /api/expenses/meta
-- get /api/expenses?year=&month=
-- get /api/expenses?keyword=&limit=&skip=
+- get /api/expenses?date (done)
+- get /api/expenses?search (done)
 - get /api/expense/:id (done)
 - put /api/expense/:id (done) 
-- delete /api/expense/:id
-
-- get /api/expense/monthly
+- delete /api/expense/:id (done)
+- get /api/expenses/meta
 
 ### Unit test by Mocha
  

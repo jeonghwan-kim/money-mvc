@@ -4,17 +4,44 @@
 
 'use strict';
 
-var _ = require('lodash');
-var models = require('../../models');
+var _ = require('lodash'),
+    moment = require('moment'),
+    models = require('../../models');
 
 function index(req, res) {
-  models.Expense.findAll({
-    where: {
-      UserId: req.user.id
+  var date,
+      cond = {};
+
+  cond.UserId = req.user.id;
+
+  if (req.query.date) {
+    try {
+      date = moment(req.query.date + '-01', 'YYYY-MM-DD');
+      cond.date = {
+        $between: [
+          date.toDate().toISOString(),
+          date.endOf('month').toDate().toISOString()
+        ]
+      };
+    } catch (e) {
+      date = null;
     }
+  }
+
+  if (req.query.search) {
+    cond.memo = {
+      like: '%' + req.query.search + '%'
+    };
+  }
+
+  models.Expense.findAll({
+    where: cond,
+    offset: parseInt(req.query.skip, 10) || 0,
+    limit: parseInt(req.query.limit, 10) || null
   }).then(function (expenses) {
     res.json(expenses);
   }).catch(function (err) {
+    console.error(err);
     res.status(500).json({error: err});
   });
 }
