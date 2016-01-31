@@ -8,6 +8,15 @@ var _ = require('lodash'),
     moment = require('moment'),
     models = require('../../models');
 
+function meta(req, res) {
+  var query = 'SELECT DISTINCT(LEFT(date, 7)) as date FROM Expenses where UserId = :UserId order by date desc',
+      values = {UserId: req.user.id};
+  models.sequelize.query(query, {replacements: values})
+      .spread(function (results, metadata) {
+        res.json({dates: _.map(results, 'date')});
+      });
+}
+
 function index(req, res) {
   var date,
       cond = {};
@@ -101,6 +110,7 @@ function destroy(req, res) {
 }
 
 module.exports = {
+  meta: meta,
   index: index,
   show: show,
   update: update,

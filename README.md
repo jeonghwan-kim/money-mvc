@@ -27,23 +27,21 @@ Client
 
 Authentication
 
-- post /auth (done)
+- post /auth 
 - delete /auth
 
 User 
 
-- post /api/users (done)
-- get /api/users/me (done)
+- post /api/users
+- get /api/users/me
 
 Expense 
 
-- post /api/expense (done) 
-- get /api/expenses?date (done)
-- get /api/expenses?search (done)
-- get /api/expense/:id (done)
-- put /api/expense/:id (done) 
-- delete /api/expense/:id (done)
-- get /api/expenses/meta
-
-### Unit test by Mocha
- 
+- post /api/expense  
+- get /api/expenses?date 
+- get /api/expenses?search 
+- get /api/expense/:id 
+- put /api/expense/:id  
+- delete /api/expense/:id 
+- get /api/expenses/meta 
+s
