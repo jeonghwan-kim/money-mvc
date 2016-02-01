@@ -19,23 +19,45 @@ Client
 - javascript
 
 
-## Todo
+## Structure
 
 ### Database modeling by Sequelize and MySQL
 
+#### Users
+
+- id
+- email
+- password
+- name
+- createdAt
+- updatedAT
+
+
+#### Expenses
+
+- id
+- date
+- memo
+- amount
+- createdAt
+- updatedAT
+- UserId
+
 ### REST API
 
-Authentication
+#### Authentication
 
 - post /auth 
 - delete /auth
 
-User 
+
+#### User 
 
 - post /api/users
 - get /api/users/me
 
-Expense 
+
+#### Expense 
 
 - post /api/expense  
 - get /api/expenses?date 
@@ -44,4 +66,10 @@ Expense
 - put /api/expense/:id  
 - delete /api/expense/:id 
 - get /api/expenses/meta 
-s
+
+
+### Front Routes
+
+- /expenses?date=YYYY-MM
+- /expenses/new
+- /expenses/:id

@@ -7,15 +7,12 @@
 var gulp = require('gulp');
 var server;
 
-server = {
-  express: require('./server/express/app')
-};
+server = {};
 
-gulp.task('serve:express', function (cb) {
-  server.express.run(cb)
+gulp.task('serve:express', function () {
+  server.express = require('./server/express/app');
 });
 
-gulp.task('serve:express:angular', ['serve:express'], function (cb) {
+gulp.task('serve:express:angular', ['serve:express'], function () {
   server.express.setStatic('angular');
-  cb();
 });
