@@ -1,0 +1,27 @@
+<h2>Login</h2>
+
+<form name="loginForm" ng-submit="submit(loginForm)" novalidate>
+    <div>
+        <label for="email">Email:</label>
+        <input id="email" type="email" name="email" ng-model="user.email" ng-required="true">
+        <div class="warn">
+            <p ng-show="loginForm.$submitted && loginForm.email.$error.required">Required</p>
+            <p ng-show="loginForm.$submitted && loginForm.email.$error.email">Email pattern</p>
+        </div>
+    </div>
+    <div>
+        <label for="password">Password:</label>
+        <input id="password" type="password" name="password" ng-model="user.password" ng-required="true" ng-minlength="6">
+        <div class="warn">
+            <p ng-show="loginForm.$submitted && loginForm.password.$error.required">Required</p>
+            <p ng-show="loginForm.$submitted && loginForm.password.$error.minlength">More than 5 charaters</p>
+        </div>
+    </div>
+    <div>
+        <input type="submit" value="Login">
+        <div class="warn">
+            <p ng-bind="result">
+        </div>
+    </div>
+    <pre>{{loginForm|json}}</pre>
+</form>
