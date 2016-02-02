@@ -1,16 +1,29 @@
 <!DOCTYPE html>
-<html lang="en" ng-app="money-mvc">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>MoneyMVC by angular</title>
 </head>
-<body>
-    <div ng-controller="MainCtrl">
-        <pre>{{data|json}}</pre>
-    </div>
+<body ng-app="money-mvc">
+    <header>
+        <h1>MoneyMVC</h1>
+    </header>
 
-    <script src="bower_components/angular/angular.js"></script>
-    <script src="js/app.js"></script>
-    <script src="js/main.js"></script>
+    <main>
+        <div ui-view=""></div>
+    </main>
+
+    <footer>
+        <p>By Chris</p>
+    </footer>
+
+    <!-- vendors -->
+    <script src="bower_components/angular/angular.min.js"></script>
+    <script src="bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
+
+    <!-- scripts -->
+    <script src="app/app.js"></script>
+    <script src="app/expenses/expenses.ctrl.js"></script>
+    <script src="app/expense/expense.ctrl.js"></script>
 </body>
 </html>

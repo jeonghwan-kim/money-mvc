@@ -3,19 +3,14 @@
  */
 
 var gulp = require('gulp'),
-    del = require('del');
+//del = require('del'),
+    browserSync = require('browser-sync');
 
 
-gulp.task('copy', ['clean'], function () {
-  gulp.src('./index.html')
-      .pipe(gulp.dest('./dist/'));
+gulp.task('serve', function () {
+  browserSync.init({
+    proxy: 'localhost:3000'
+  });
 
-  gulp.src('./js/**/*.js')
-      .pipe(gulp.dest('./dist/js'));
+  gulp.watch(['app/**/*', 'index.html']).on('change', browserSync.reload);
 });
-
-gulp.task('clean', del.bind(null, ['./dist']));
-
-gulp.task('build', ['copy']);
-
-gulp.task('default', ['build']);

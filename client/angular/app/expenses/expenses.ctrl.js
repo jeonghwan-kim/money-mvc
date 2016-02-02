@@ -5,7 +5,7 @@
 'use strict';
 
 angular.module('money-mvc')
-    .controller('MainCtrl', function ($scope, $http) {
+    .controller('ExpensesCtrl', function ($scope, $http) {
       $http.get('/api/echo?message=halo')
           .then(function success(response) {
             $scope.data = response.data;
