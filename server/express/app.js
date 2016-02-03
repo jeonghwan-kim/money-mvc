@@ -15,7 +15,7 @@ require('./config/passport').setup(app);
 require('./routes').setup(app);
 
 if ('development' === app.get('env') || 'production' === app.get('env')) {
-  models.sequelize.sync().then(function () {
+  models.sequelize.sync({force: true}).then(function () {
     app.listen(port, function() {
       console.log('Express server listening on port ' + port);
     });

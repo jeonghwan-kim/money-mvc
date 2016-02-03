@@ -9,6 +9,12 @@ angular.module('money-mvc', [
 ]).config(['$urlRouterProvider', '$stateProvider', '$locationProvider', function ($urlRouterProvider, $stateProvider) {
   $urlRouterProvider.otherwise('/expenses');
 
+  $stateProvider.state('register', {
+    url: '/register',
+    templateUrl: 'app/register/register.tpl.html',
+    controller: 'RegisterCtrl'
+  });
+
   $stateProvider.state('login', {
     url: '/login',
     templateUrl: 'app/login/login.tpl.html',

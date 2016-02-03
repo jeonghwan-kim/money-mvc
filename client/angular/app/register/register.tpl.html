@@ -1,6 +1,6 @@
-<h2>Login</h2>
+<h2>Register</h2>
 
-<form name="loginForm" ng-submit="submit(loginForm)" novalidate>
+<form name="registerForm" ng-submit="submit(registerForm)" novalidate>
     <div>
         <label for="email">Email:</label>
         <input id="email" type="email" name="email" ng-model="user.email" ng-required="true" autofocus>
@@ -18,10 +18,18 @@
         </div>
     </div>
     <div>
-        <input type="submit" value="Login">
+        <label for="repassword">Password Again:</label>
+        <input id="repassword" type="password" name="repassword" ng-model="user.repassword" ng-required="true">
+        <div class="warn">
+            <p ng-show="loginForm.$submitted && loginForm.password.$error.required">Required</p>
+            <p ng-show="loginForm.$submitted && loginForm.password.$error.samewith">Type the same password</p>
+        </div>
+    </div>
+    <div>
+        <input type="submit" value="Register">
         <div class="warn">
             <p ng-bind="result">
         </div>
     </div>
-    <pre>{{loginForm|json}}</pre>
+    <pre>{{registerForm|json}}</pre>
 </form>
